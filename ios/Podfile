@@ -23,6 +23,10 @@ target 'PhotoEditor' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
+  pod 'RNSketchCanvas', :path => '../node_modules/@terrylinla/react-native-sketch-canvas'
+
   target 'PhotoEditorTests' do
     inherit! :complete
     # Pods for testing

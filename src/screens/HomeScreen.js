@@ -5,14 +5,13 @@ import {
   ImageBackground,
   StatusBar,
   Image,
-  Alert
+  Alert,
 } from 'react-native';
 import React from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import ImagePicker from 'react-native-image-crop-picker';
 import EditImage from './EditImage';
-
 
 const image = {uri: 'https://reactjs.org/logo-og.png'};
 const HomeScreen = ({navigation}) => {
@@ -21,11 +20,14 @@ const HomeScreen = ({navigation}) => {
       width: 300,
       height: 400,
       cropping: true,
-    }).then(image => {
-      navigation.navigate('FinalImage', {
-        image1: image,
-      });
-    });
+    })
+      .then(image => {
+        console.log(image, 'img');
+        navigation.navigate('FinalImage', {
+          image1: image,
+        });
+      })
+      .catch(err => console.log(err, 'errr'));
   };
   return (
     <View style={styles.container}>

@@ -28,7 +28,8 @@ import {
 } from 'react-native';
 
 import {FILTERS} from './Filter';
-const EditImage = ({route, props,navigation}) => {
+import Icon from 'react-native-vector-icons/Feather';
+const EditImage = ({route, props, navigation}) => {
   const productId = route.params.image1;
   const [editImage, setEditImage] = useState(route.params.image1);
   const extractedUri = useRef(productId);
@@ -68,8 +69,8 @@ const EditImage = ({route, props,navigation}) => {
   const SelectedFilterComponent = FILTERS[selectedFilterIndex].filterComponent;
   //  console.log(editImage,"edit")
   return (
-    <ScrollView>
-      <TouchableOpacity
+    <ScrollView style={{backgroundColor: 'black'}}>
+      {/* <TouchableOpacity
         style={{
           height: '6%',
           width: '30%',
@@ -82,11 +83,12 @@ const EditImage = ({route, props,navigation}) => {
         }}
         onPress={() => {
           navigation.navigate('FinalImage', {
-            image1:{"path":editImage}
+            image1: {path: editImage},
           });
-        }}>
+        }}
+        >
         <Text style={{fontSize: 18, color: '#fff'}}>Save</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       {selectedFilterIndex === 0 ? (
         <Image
@@ -107,6 +109,30 @@ const EditImage = ({route, props,navigation}) => {
           }
         />
       )}
+      <View style={{height: '7%', backgroundColor: 'black', paddingTop: 10}}>
+        <View style={{flexDirection: 'row', marginBottom: 10}}>
+         
+          <Icon
+            name="check"
+            size={30}
+            style={{marginLeft: '85%'}}
+            color="#fff"
+            onPress={() => {
+              navigation.navigate('FinalImage', {
+                image1: {path: editImage},
+              });
+            }}
+            // onPress={() => {
+            //   saveImg();
+            //   // cropViewRef.current.saveImage(true, 90);
+            //   //console.log
+            //   //   navigation.navigate('FinalImage', {
+            //   //     image1:{ "path":cropViewRef.current.saveImage(true, 90)},
+            //   //   });
+            // }}
+          />
+        </View>
+      </View>
 
       <FlatList
         data={FILTERS}
@@ -131,7 +157,8 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   filterTitle: {
-    fontSize: 12,
+    fontSize: 15,
     textAlign: 'center',
+    color:'#fff'
   },
 });

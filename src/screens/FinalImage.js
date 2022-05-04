@@ -1,13 +1,76 @@
-import {StyleSheet, Text, View, Image, StatusBar} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  StatusBar,
+  Platform,
+  PermissionsAndroid,
+} from 'react-native';
 import React from 'react';
 import EditNavigator from '../navigation/EditNavigator';
 import NavigateCard from '../components/NavigateCard';
+import RNFetchBlob from 'rn-fetch-blob';
+import RNFS from 'react-native-fs';
 
 const FinalImage = ({route}) => {
   const productId = route.params.image1?.path;
   console.log(route.params.image1, 'finalImage');
+
   console.log(productId);
   console.log('file://' + productId);
+
+  const checkPermission = async () => {
+    // Function to check the platform
+    // If iOS then start downloading
+    // If Android then ask for permission
+
+    if (Platform.OS === 'ios') {
+      downloadImage();
+    } else {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Storage Permission Required',
+            message: 'App needs access to your storage to download Photos',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          // Once user grant the permission start downloading
+          console.log('Storage Permission Granted.');
+          downloadImage();
+        } else {
+          // If permission denied then show alert
+          alert('Storage Permission Not Granted');
+        }
+      } catch (err) {
+        // To handle permission related exception
+        console.warn(err);
+      }
+    }
+  };
+
+  const downloadImage = () => {
+    // Main function to download the image
+
+    var destPath =
+      RNFS.DownloadDirectoryPath + '/' + 'IMG' + Date.now() + '.jpg';
+    RNFS.moveFile(productId, destPath)
+      .then(success => {
+        console.log('file moved!');
+        alert('Image Downloaded Successfully.');
+      })
+      .catch(err => {
+        console.log('Error: ' + err.message);
+      });
+  };
+
+  const getExtention = filename => {
+    // To get the file extension
+    return /[.]/.exec(filename) ? /[^.]+$/.exec(filename) : undefined;
+  };
 
   return (
     <View>
@@ -19,6 +82,26 @@ const FinalImage = ({route}) => {
           alignItems: 'center',
           backgroundColor: 'black',
         }}>
+        <TouchableOpacity
+          style={{
+            height: '6%',
+            width: '30%',
+            backgroundColor: 'red',
+            marginLeft: '65%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 5,
+            marginTop: -10,
+          }}
+          onPress={checkPermission}
+          // onPress={() => {
+          //   navigation.navigate('FinalImage', {
+          //     image1: {path: editImage},
+          //   });
+          // }}
+        >
+          <Text style={{fontSize: 18, color: '#fff'}}>Save</Text>
+        </TouchableOpacity>
         <Image
           style={styles.filterSelector}
           source={{
@@ -43,10 +126,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   filterSelector: {
-    width: '80%',
-    height: '80%',
+    width: '90%',
+    height: '90%',
+
     //margin: 5,
-    backgroundColor:'hsl(155, 30%, 100%)'
+    backgroundColor:'black'
   },
   filterTitle: {
     fontSize: 12,
