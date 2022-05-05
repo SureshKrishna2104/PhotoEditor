@@ -23,6 +23,8 @@ import {
   Touchable,
   Text,
   Image,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {
   Grayscale,
@@ -36,19 +38,28 @@ import {
   Achromatomaly,
   Achromatopsia,
 } from 'react-native-color-matrix-image-filters';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/Entypo';
+import OIcon from 'react-native-vector-icons/Octicons'
 import RNDrawOnScreen from 'react-native-draw-on-screen';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native-gesture-handler';
 import {rgba} from 'react-native-image-filter-kit';
 import RNViewShot from 'react-native-view-shot';
 import {captureScreen} from 'react-native-view-shot';
 import {captureRef} from 'react-native-view-shot';
+import Draggable from 'react-native-draggable';
 //import Controls from './Controls';
 
 const ImageSketch = props => {
   const [color, setColor] = useState('black');
-  const [strokeWidth, setStrokeWidth] = useState(5);
+  const [strokeWidth, setStrokeWidth] = useState(20);
   const [mode, setMode] = useState('colors');
+  const [text, setText] = useState('  ');
+  const [handle, setHandle] = useState(false);
+  const[bold,setBold]=useState("")
   const RNDraw = useRef();
   const changeColor = color => {
     setColor(color);
@@ -66,19 +77,6 @@ const ImageSketch = props => {
   };
   const imgref = useRef();
   const onCapture = () => {
-    // captureScreen({
-    //   format: 'jpg',
-    //   quality: 0.8,
-    // }).then(
-    //   uri => {
-    //     console.log('do something with ', uri);
-    //     props.navigation.navigate('FinalImage', {
-    //       image1: {path: uri},
-    //     });
-    //   },
-    //   error => console.error('Oops, snapshot failed', error),
-    // );
-
     captureRef(imgref.current, {
       format: 'jpg',
       quality: 0.8,
@@ -92,6 +90,7 @@ const ImageSketch = props => {
       error => console.error('Oops, snapshot failed', error),
     );
   };
+  console.log(text, 'ddd');
 
   const saveImg = () => {
     // console.log(RNDraw.current.updateView(), 'kkk');
@@ -106,6 +105,8 @@ const ImageSketch = props => {
     <View>
       <View style={{height: '80%', backgroundColor: 'black'}}>
         <View
+          ref={imgref}
+          collapsable={false}
           style={{
             flex: 1,
             flexGrow: 1,
@@ -113,43 +114,57 @@ const ImageSketch = props => {
             borderWidth: 2,
             borderColor: '#ccc',
           }}>
-          <RNViewShot ref={imgref} captureMode="update">
-            <ImageBackground
-              source={{uri: props.route?.params?.image1}}
-              style={{height: '100%', width: '100%'}}>
-              <RNDrawOnScreen
-                penColor={color}
-                strokeWidth={strokeWidth}
-                ref={r => (RNDraw.current = r)}
-              />
-            </ImageBackground>
-          </RNViewShot>
+          {/* <RNViewShot ref={imgref} captureMode="update"> */}
+          <ImageBackground
+            source={{uri: props.route?.params?.image1}}
+            style={{height: '100%', width: '100%'}}>
+            {/* <RNDrawOnScreen
+              penColor={color}
+              strokeWidth={strokeWidth}
+              ref={r => (RNDraw.current = r)}
+            /> */}
+            {handle ? (
+              <View>
+                <Draggable x={50} y={50}>
+                  <TextInput
+                    value={text}
+                    style={{
+                      backgroundColor: 'rgba(0,0,0,0.2)',
+                      minHeight: 50,
+                      minWidth: 100,
+                      maxWidth: '100%',
+                      color: color,
+                      fontSize: strokeWidth,
+                      fontWeight: bold,
+                      letterSpacing: 2,
+                      fontStyle:''
+                    }}
+                    onChangeText={e => setText(e)}
+                  />
+                </Draggable>
+              </View>
+            ) : null}
+          </ImageBackground>
+          {/* </RNViewShot> */}
         </View>
       </View>
       <View style={{height: '20%', backgroundColor: 'black'}}>
         <View style={{flexDirection: 'row', padding: 10}}>
           <Icon
-            name="rotate-ccw"
-            size={26}
+            name="keyboard"
+            size={28}
             style={{marginLeft: 20, marginTop: 0}}
             color="#fff"
-            onPress={() => undo()}
+            onPress={() => setHandle(true)}
           />
 
           <Icon
-            name="check"
-            size={26}
+            name="cross"
+            size={28}
             style={{marginLeft: '75%'}}
             color="#fff"
-            onPress={() => clear()}
-            // onPress={() => {
-            //   saveImg();
-            //   // cropViewRef.current.saveImage(true, 90);
-            //   //console.log
-            //   //   navigation.navigate('FinalImage', {
-            //   //     image1:{ "path":cropViewRef.current.saveImage(true, 90)},
-            //   //   });
-            // }}
+            onPress={() => setHandle(false)}
+         
           />
         </View>
         <View>
@@ -237,7 +252,7 @@ const ImageSketch = props => {
                 />
               </View>
             </ScrollView>
-          ) : (
+          ): mode === 'pensize' ? (
             <ScrollView horizontal={true}>
               <View
                 style={{
@@ -255,7 +270,7 @@ const ImageSketch = props => {
 
                     marginLeft: 50,
                   }}
-                  onPress={() => changeBrushSize(5)}
+                  onPress={() => changeBrushSize(10)}
                 />
                 <TouchableOpacity
                   style={{
@@ -266,7 +281,7 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(10)}
+                  onPress={() => changeBrushSize(15)}
                 />
                 <TouchableOpacity
                   style={{
@@ -277,7 +292,7 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(10)}
+                  onPress={() => changeBrushSize(20)}
                 />
                 <TouchableOpacity
                   style={{
@@ -288,7 +303,7 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(10)}
+                  onPress={() => changeBrushSize(25)}
                 />
                 <TouchableOpacity
                   style={{
@@ -299,7 +314,7 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(15)}
+                  onPress={() => changeBrushSize(30)}
                 />
                 <TouchableOpacity
                   style={{
@@ -310,7 +325,7 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(10)}
+                  onPress={() => changeBrushSize(35)}
                 />
                 <TouchableOpacity
                   style={{
@@ -321,11 +336,34 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(20)}
+                  onPress={() => changeBrushSize(40)}
                 />
               </View>
             </ScrollView>
-          )}
+          ):<View style={{flexDirection:'row',justifyContent:'center',marginBottom:10}}>
+            <OIcon
+            name="bold"
+            size={28}
+            style={{marginLeft: 20,paddingLeft:10}}
+            color="#fff"
+            onPress={() => setBold("bold")}
+          />
+          <OIcon
+            name="italic"
+            size={28}
+            style={{marginLeft: 20,paddingLeft:10}}
+            color="#fff"
+            onPress={() => setHandle(true)}
+          />
+          <OIcon
+            name="circle-slash"
+            size={28}
+            style={{marginLeft: 20,paddingLeft:10}}
+            color="#fff"
+            onPress={() => setHandle(true)}
+          />
+
+            </View>}
 
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity
@@ -356,9 +394,9 @@ const ImageSketch = props => {
                 marginLeft: 20,
               }}
               onPress={() => setMode('pensize')}>
-              <Text style={{fontSize: 20}}>PenSize</Text>
+              <Text style={{fontSize: 20}}>TextSize</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{
                 height: 30,
                 width: 100,
@@ -372,6 +410,21 @@ const ImageSketch = props => {
               }}
               onPress={() => onCapture()}>
               <Text style={{fontSize: 20}}>Save</Text>
+            </TouchableOpacity> */}
+            <TouchableOpacity
+              style={{
+                height: 30,
+                width: 100,
+                borderRadius: 5,
+                backgroundColor: 'white',
+                justifyContent: 'center',
+                alignContent: 'center',
+                alignItems: 'center',
+                marginTop: 10,
+                marginLeft: 20,
+              }}
+              onPress={() => setMode('textStyle')}>
+              <Text style={{fontSize: 20}}>TextStyle</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -381,6 +434,31 @@ const ImageSketch = props => {
 };
 
 export default ImageSketch;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  inner: {
+    padding: 24,
+    flex: 1,
+    justifyContent: 'space-around',
+  },
+  header: {
+    fontSize: 36,
+    marginBottom: 48,
+  },
+  textInput: {
+    height: 40,
+    borderColor: '#000000',
+    borderBottomWidth: 1,
+    marginBottom: 36,
+  },
+  btnContainer: {
+    backgroundColor: 'white',
+    marginTop: 12,
+  },
+});
 // export default class ImageSketch extends React.Component {
 //   state = {
 //     color: 'black',

@@ -6,12 +6,13 @@ import {
   Alert,
   View,
   StatusBar,
+  ScrollView
 } from 'react-native';
 import React, {useRef, useState} from 'react';
 import {CropView} from 'react-native-image-crop-tools';
 import Icon from 'react-native-vector-icons/Feather';
 import RNFS from 'react-native-fs';
-import {ScrollView} from 'react-native-gesture-handler';
+
 
 const CropImage = ({props, route, navigation}) => {
   const productImage = route.params.image1;

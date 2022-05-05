@@ -13,7 +13,7 @@ import EditNavigator from '../navigation/EditNavigator';
 import NavigateCard from '../components/NavigateCard';
 import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
-
+import Icon from 'react-native-vector-icons/Feather';
 const FinalImage = ({route}) => {
   const productId = route.params.image1?.path;
   console.log(route.params.image1, 'finalImage');
@@ -100,8 +100,12 @@ const FinalImage = ({route}) => {
           //   });
           // }}
         >
-          <Text style={{fontSize: 18, color: '#fff'}}>Save</Text>
+          <View style={{flexDirection:'row'}}>
+          <Text style={{fontSize: 18, color: '#fff',paddingLeft:2}}>Save</Text>
+          <Icon name="download" size={20} style={{paddingLeft:10,color:'white'}}/>
+          </View>
         </TouchableOpacity>
+
         <Image
           style={styles.filterSelector}
           source={{
@@ -130,7 +134,7 @@ const styles = StyleSheet.create({
     height: '90%',
 
     //margin: 5,
-    backgroundColor:'black'
+    backgroundColor: 'black',
   },
   filterTitle: {
     fontSize: 12,

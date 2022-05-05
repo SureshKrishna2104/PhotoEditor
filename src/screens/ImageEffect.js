@@ -97,7 +97,7 @@ const ImageEffect = ({route, navigation}) => {
       <View style={{height: '20%', backgroundColor: 'black', paddingTop: 20}}>
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <Icon
-            name="rotate-ccw"
+            name="slash"
             size={26}
             style={{marginLeft: 20}}
             color="#fff"
@@ -122,7 +122,7 @@ const ImageEffect = ({route, navigation}) => {
           horizontal={true}
           style={{
             width: '100%',
-            marginLeft: 50,
+            marginLeft: 80,
           }}>
           <TouchableOpacity
             onPress={() => setEffect('sepia')}

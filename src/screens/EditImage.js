@@ -28,7 +28,7 @@ import {
 } from 'react-native';
 
 import {FILTERS} from './Filter';
-import Icon from 'react-native-vector-icons/Feather';
+
 const EditImage = ({route, props, navigation}) => {
   const productId = route.params.image1;
   const [editImage, setEditImage] = useState(route.params.image1);
@@ -110,36 +110,35 @@ const EditImage = ({route, props, navigation}) => {
         />
       )}
       <View style={{height: '7%', backgroundColor: 'black', paddingTop: 10}}>
-        <View style={{flexDirection: 'row', marginBottom: 10}}>
-         
-          <Icon
-            name="check"
-            size={30}
-            style={{marginLeft: '85%'}}
-            color="#fff"
-            onPress={() => {
-              navigation.navigate('FinalImage', {
-                image1: {path: editImage},
-              });
-            }}
-            // onPress={() => {
+        <View style={{flexDirection: 'row', marginBottom:10}}>
+         <TouchableOpacity style={{marginLeft: '70%',position:"absolute",flexDirection:"row",zIndex:1,marginTop:-535,backgroundColor:"red",height:40,width:75,alignItems:"center",justifyContent: 'center'}}
+         onPress={() => {
+          navigation.navigate('FinalImage', {
+            image1: {path: editImage},
+          });
+        }}>
+
+          <Text style={{color:"#fff",fontSize:17,fontWeight:"bold"}}>SAVE  </Text>
+          {/* <Icon name='download' size={20} />   */}
+            {/* // onPress={() => {
             //   saveImg();
             //   // cropViewRef.current.saveImage(true, 90);
             //   //console.log
             //   //   navigation.navigate('FinalImage', {
             //   //     image1:{ "path":cropViewRef.current.saveImage(true, 90)},
             //   //   });
-            // }}
-          />
+            // }} */}
+          </TouchableOpacity>
         </View>
       </View>
-
+<View style={{marginTop:-60}}>
       <FlatList
         data={FILTERS}
         keyExtractor={item => item.title}
         horizontal={true}
         renderItem={renderFilterComponent}
       />
+      </View>
     </ScrollView>
   );
 };
@@ -152,13 +151,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   filterSelector: {
-    width: 100,
+    width: 50,
     height: 100,
     margin: 5,
+    marginTop:-10
   },
   filterTitle: {
-    fontSize: 15,
+    fontSize: 13,
     textAlign: 'center',
-    color:'#fff'
+    color:'#fff',
+    marginTop:20
   },
 });
