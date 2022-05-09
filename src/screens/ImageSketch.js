@@ -39,7 +39,7 @@ import {
   Achromatopsia,
 } from 'react-native-color-matrix-image-filters';
 import Icon from 'react-native-vector-icons/Entypo';
-import OIcon from 'react-native-vector-icons/Octicons'
+import OIcon from 'react-native-vector-icons/Octicons';
 import RNDrawOnScreen from 'react-native-draw-on-screen';
 import {
   ScrollView,
@@ -55,11 +55,12 @@ import Draggable from 'react-native-draggable';
 
 const ImageSketch = props => {
   const [color, setColor] = useState('black');
-  const [strokeWidth, setStrokeWidth] = useState(20);
+  const [strokeWidth, setStrokeWidth] = useState(30);
   const [mode, setMode] = useState('colors');
   const [text, setText] = useState('  ');
   const [handle, setHandle] = useState(false);
-  const[bold,setBold]=useState("")
+  const [bold, setBold] = useState('');
+  const [italic, setItalic] = useState('');
   const RNDraw = useRef();
   const changeColor = color => {
     setColor(color);
@@ -123,6 +124,7 @@ const ImageSketch = props => {
               strokeWidth={strokeWidth}
               ref={r => (RNDraw.current = r)}
             /> */}
+
             {handle ? (
               <View>
                 <Draggable x={50} y={50}>
@@ -137,7 +139,7 @@ const ImageSketch = props => {
                       fontSize: strokeWidth,
                       fontWeight: bold,
                       letterSpacing: 2,
-                      fontStyle:''
+                      fontStyle: italic,
                     }}
                     onChangeText={e => setText(e)}
                   />
@@ -157,14 +159,28 @@ const ImageSketch = props => {
             color="#fff"
             onPress={() => setHandle(true)}
           />
+          <TouchableOpacity
+            style={{
+              marginLeft: '45%',
 
+              backgroundColor: 'red',
+              height: 30,
+              width: 75,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 5,
+            }}
+            onPress={() => onCapture()}>
+            <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>
+              SAVE
+            </Text>
+          </TouchableOpacity>
           <Icon
             name="cross"
             size={28}
-            style={{marginLeft: '75%'}}
+            style={{marginLeft: '10%'}}
             color="#fff"
             onPress={() => setHandle(false)}
-         
           />
         </View>
         <View>
@@ -252,7 +268,7 @@ const ImageSketch = props => {
                 />
               </View>
             </ScrollView>
-          ): mode === 'pensize' ? (
+          ) : mode === 'pensize' ? (
             <ScrollView horizontal={true}>
               <View
                 style={{
@@ -270,7 +286,7 @@ const ImageSketch = props => {
 
                     marginLeft: 50,
                   }}
-                  onPress={() => changeBrushSize(10)}
+                  onPress={() => changeBrushSize(20)}
                 />
                 <TouchableOpacity
                   style={{
@@ -281,7 +297,7 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(15)}
+                  onPress={() => changeBrushSize(25)}
                 />
                 <TouchableOpacity
                   style={{
@@ -292,7 +308,7 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(20)}
+                  onPress={() => changeBrushSize(30)}
                 />
                 <TouchableOpacity
                   style={{
@@ -303,7 +319,7 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(25)}
+                  onPress={() => changeBrushSize(35)}
                 />
                 <TouchableOpacity
                   style={{
@@ -314,7 +330,7 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(30)}
+                  onPress={() => changeBrushSize(40)}
                 />
                 <TouchableOpacity
                   style={{
@@ -325,7 +341,7 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(35)}
+                  onPress={() => changeBrushSize(45)}
                 />
                 <TouchableOpacity
                   style={{
@@ -336,34 +352,40 @@ const ImageSketch = props => {
 
                     marginLeft: 20,
                   }}
-                  onPress={() => changeBrushSize(40)}
+                  onPress={() => changeBrushSize(50)}
                 />
               </View>
             </ScrollView>
-          ):<View style={{flexDirection:'row',justifyContent:'center',marginBottom:10}}>
-            <OIcon
-            name="bold"
-            size={28}
-            style={{marginLeft: 20,paddingLeft:10}}
-            color="#fff"
-            onPress={() => setBold("bold")}
-          />
-          <OIcon
-            name="italic"
-            size={28}
-            style={{marginLeft: 20,paddingLeft:10}}
-            color="#fff"
-            onPress={() => setHandle(true)}
-          />
-          <OIcon
-            name="circle-slash"
-            size={28}
-            style={{marginLeft: 20,paddingLeft:10}}
-            color="#fff"
-            onPress={() => setHandle(true)}
-          />
-
-            </View>}
+          ) : (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                marginBottom: 10,
+              }}>
+              <OIcon
+                name="bold"
+                size={28}
+                style={{marginLeft: 20, paddingLeft: 10}}
+                color="#fff"
+                onPress={() => setBold('bold')}
+              />
+              <OIcon
+                name="italic"
+                size={28}
+                style={{marginLeft: 20, paddingLeft: 10}}
+                color="#fff"
+                onPress={() => setItalic('italic')}
+              />
+              <OIcon
+                name="circle-slash"
+                size={28}
+                style={{marginLeft: 20, paddingLeft: 10}}
+                color="#fff"
+                onPress={() => setItalic('normal')}
+              />
+            </View>
+          )}
 
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity
@@ -408,7 +430,8 @@ const ImageSketch = props => {
                 marginTop: 10,
                 marginLeft: 20,
               }}
-              onPress={() => onCapture()}>
+              onPress={() => onCapture()}
+              >
               <Text style={{fontSize: 20}}>Save</Text>
             </TouchableOpacity> */}
             <TouchableOpacity

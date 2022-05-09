@@ -91,12 +91,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   header: {
-    fontSize: 30,
+    fontSize: 40,
     margin: 2,
     //marginLeft: '30%',
     marginBottom: '30%',
-    fontWeight: 'bold',
-    fontStyle: 'italic',
+    // fontWeight: 'bold',
+    // fontStyle: 'italic',
+    fontFamily: 'DancingScript-Bold',
   },
   linearGradient: {
     alignItems: 'center',
@@ -109,7 +110,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     // paddingLeft: 40,
     color: '#fff',
-    //marginLeft: '30%',
   },
   card: {
     marginTop: 10,
@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
 
-    //alignContent:'center',
     // alignItems:'center'
   },
 });

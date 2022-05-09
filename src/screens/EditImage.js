@@ -72,8 +72,6 @@ const EditImage = ({route, props, navigation}) => {
     <ScrollView style={{backgroundColor: 'black'}}>
       {/* <TouchableOpacity
         style={{
-          height: '6%',
-          width: '30%',
           backgroundColor: 'red',
           marginLeft: '65%',
           justifyContent: 'center',
@@ -122,12 +120,9 @@ const EditImage = ({route, props, navigation}) => {
           {/* <Icon name='download' size={20} />   */}
             {/* // onPress={() => {
             //   saveImg();
-            //   // cropViewRef.current.saveImage(true, 90);
-            //   //console.log
-            //   //   navigation.navigate('FinalImage', {
-            //   //     image1:{ "path":cropViewRef.current.saveImage(true, 90)},
-            //   //   });
             // }} */}
+
+
           </TouchableOpacity>
         </View>
       </View>
