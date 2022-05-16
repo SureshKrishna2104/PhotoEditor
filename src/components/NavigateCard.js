@@ -25,7 +25,7 @@ const NavigateCard = ({image}) => {
           backgroundColor: 'black',
           paddingTop: 5,
           //marginLeft:30,
-          paddingLeft: 35,
+          paddingLeft: 15,
         }}>
         <View style={{flexDirection: 'column'}}>
           <Icons
@@ -127,6 +127,24 @@ const NavigateCard = ({image}) => {
           <Text
             style={{color: '#fff', marginLeft: 12, fontSize: 14, marginTop: -1}}>
             TEXT
+          </Text>
+        </View>
+
+        <View style={{flexDirection: 'column'}}>
+          <MIcon
+            name="sticker-emoji"
+            size={26}
+            style={{marginLeft: 15}}
+            color="#fff"
+            onPress={() =>
+              navigation.navigate('ImageSticker', {
+                image1: productId,
+              })
+            }
+          />
+          <Text
+            style={{color: '#fff', marginLeft: 12, fontSize: 14, marginTop: -1}}>
+            Sticker
           </Text>
         </View>
         

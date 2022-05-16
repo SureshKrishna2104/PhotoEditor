@@ -11,6 +11,7 @@ import ImageEffect from '../screens/ImageEffect';
 import ImageAdjust from '../screens/ImageAdjust';
 import ImageSketch from '../screens/ImageSketch';
 import ImageBackground from '../screens/ImageBackground';
+import ImageSticker from '../screens/ImageSticker';
 //import ImageAdjustment from '../screens/ImageAdjustment';
 // import AImage from '../screens/AImage';
 const Stack = createStackNavigator();
@@ -30,6 +31,7 @@ const RootNavigator = () => {
         <Stack.Screen name="ImageAdjust" component={ImageAdjust} />
         <Stack.Screen name="ImageSketch" component={ImageSketch} />
         <Stack.Screen name="ImageBackground" component={ImageBackground} />
+        <Stack.Screen name="ImageSticker" component={ImageSticker} />
         {/* <Stack.Screen name="ImageAdjustment" component={ImageAdjustment} /> */}
         {/* <Stack.Screen name="AImage" component={AImage} /> */}
         {/* <Stack.Screen name="MapScreen" component={MapScreen} />

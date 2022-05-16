@@ -108,31 +108,38 @@ const EditImage = ({route, props, navigation}) => {
         />
       )}
       <View style={{height: '7%', backgroundColor: 'black', paddingTop: 10}}>
-        <View style={{flexDirection: 'row', marginBottom:10}}>
-         <TouchableOpacity style={{marginLeft: '70%',position:"absolute",flexDirection:"row",zIndex:1,marginTop:-535,backgroundColor:"red",height:40,width:75,alignItems:"center",justifyContent: 'center'}}
-         onPress={() => {
-          navigation.navigate('FinalImage', {
-            image1: {path: editImage},
-          });
-        }}>
-
-          <Text style={{color:"#fff",fontSize:17,fontWeight:"bold"}}>SAVE  </Text>
-          {/* <Icon name='download' size={20} />   */}
-            {/* // onPress={() => {
-            //   saveImg();
-            // }} */}
-
-
+        <View style={{flexDirection: 'row', marginBottom: 10}}>
+          <TouchableOpacity
+            style={{
+              marginLeft: '70%',
+              position: 'absolute',
+              flexDirection: 'row',
+              zIndex: 1,
+              marginTop: -535,
+              backgroundColor: 'red',
+              height: 40,
+              width: 75,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={() => {
+              navigation.navigate('FinalImage', {
+                image1: {path: editImage},
+              });
+            }}>
+            <Text style={{color: '#fff', fontSize: 17, fontWeight: 'bold'}}>
+              SAVE{' '}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
-<View style={{marginTop:-60}}>
-      <FlatList
-        data={FILTERS}
-        keyExtractor={item => item.title}
-        horizontal={true}
-        renderItem={renderFilterComponent}
-      />
+      <View style={{marginTop: -60}}>
+        <FlatList
+          data={FILTERS}
+          keyExtractor={item => item.title}
+          horizontal={true}
+          renderItem={renderFilterComponent}
+        />
       </View>
     </ScrollView>
   );
@@ -149,12 +156,12 @@ const styles = StyleSheet.create({
     width: 50,
     height: 100,
     margin: 5,
-    marginTop:-10
+    marginTop: -10,
   },
   filterTitle: {
     fontSize: 13,
     textAlign: 'center',
-    color:'#fff',
-    marginTop:20
+    color: '#fff',
+    marginTop: 20,
   },
 });

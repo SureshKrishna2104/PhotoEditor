@@ -24,7 +24,6 @@ import {
   saturate,
   Achromatomaly,
   Achromatopsia,
-  
 } from 'react-native-color-matrix-image-filters';
 import RNViewShot from 'react-native-view-shot';
 const ImageEffect = ({route, navigation}) => {
@@ -95,7 +94,7 @@ const ImageEffect = ({route, navigation}) => {
         )}
       </View>
       <View style={{height: '20%', backgroundColor: 'black', paddingTop: 20}}>
-        <View style={{flexDirection: 'row', marginBottom: 10}}>
+        <View style={{flexDirection: 'row', marginBottom: -10}}>
           <Icon
             name="slash"
             size={26}
@@ -122,68 +121,79 @@ const ImageEffect = ({route, navigation}) => {
           horizontal={true}
           style={{
             width: '100%',
-            marginLeft: 80,
+            marginLeft: 40,
           }}>
+           <View style={{flexDirection:'column'}}>
+           <Text style={{color: '#fff', fontSize: 15,paddingLeft:40,paddingBottom:2}}>Sepia</Text>
           <TouchableOpacity
-            onPress={() => setEffect('sepia')}
             style={{
-              marginLeft: 25,
-              marginTop: 10,
-              height: 50,
-              width: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-              //opacity: canvas==="1:1"?1:0.5 ,
-              backgroundColor: '#fff',
-              borderRadius: 10,
-            }}>
-            <Text style={{color: 'black', fontSize: 15}}>Sepia</Text>
+              height: 80,
+              width: 80,
+              borderRadius: 50,
+              backgroundColor: 'red',
+            //  marginTop: -20,
+              marginLeft: 20,
+            }}
+            //onPress={() => setBlur(3)}
+            onPress={() => setEffect('sepia')}>
+            <Sepia>
+              <Image
+                source={{uri: productImage}}
+                style={{width: '100%', height: '100%'}}
+              />
+            </Sepia>
           </TouchableOpacity>
+          </View> 
+          <View style={{flexDirection:'column'}}>
+           <Text style={{color: '#fff', fontSize: 15,paddingLeft:20,paddingBottom:2}}>GrayScalled</Text>
           <TouchableOpacity
-            onPress={() => setEffect('grayScale')}
             style={{
-              marginLeft: 25,
-              marginTop: 10,
-              height: 50,
-              width: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-              //opacity: canvas==="1:1"?1:0.5 ,
-              backgroundColor: '#fff',
-              borderRadius: 10,
-            }}>
-            <Text style={{color: 'black', fontSize: 15}}>Gray Scaled</Text>
+              height: 80,
+              width: 80,
+              borderRadius: 50,
+              backgroundColor: 'red',
+            //  marginTop: -20,
+              marginLeft: 20,
+            }}
+            //onPress={() => setBlur(3)}
+            onPress={() => setEffect('grayScale')}>
+            <Grayscale>
+              <Image
+                source={{uri: productImage}}
+                style={{width: '100%', height: '100%'}}
+              />
+            </Grayscale>
           </TouchableOpacity>
+          </View> 
+          <View style={{flexDirection:'column'}}>
+           <Text style={{color: '#fff', fontSize: 15,paddingLeft:20,paddingBottom:2}}>ColorMatrix</Text>
           <TouchableOpacity
-            onPress={() => setEffect('ColorMatrix')}
             style={{
-              marginLeft: 25,
-              marginTop: 10,
-              height: 50,
-              width: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-              //opacity: canvas==="1:1"?1:0.5 ,
-              backgroundColor: '#fff',
-              borderRadius: 10,
-            }}>
-            <Text style={{color: 'black', fontSize: 15}}>Color Matrix</Text>
+              height: 80,
+              width: 80,
+              borderRadius: 50,
+              backgroundColor: 'red',
+            //  marginTop: -20,
+              marginLeft: 20,
+            }}
+            //onPress={() => setBlur(3)}
+            onPress={() => setEffect('ColorMatrix')}>
+             <ColorMatrix
+              matrix={concatColorMatrices([
+                saturate(-0.9),
+                contrast(5.2),
+                invert(),
+              ])}
+              // alt: matrix={[saturate(-0.9), contrast(5.2), invert()]}
+            >
+              <Image
+                source={{uri: productImage}}
+                style={{width: '100%', height: '100%'}}
+              />
+            </ColorMatrix>
           </TouchableOpacity>
-          {/* <TouchableOpacity
-            onPress={() => setEffect('')}
-            style={{
-              marginLeft: 25,
-              marginTop: 10,
-              height: 50,
-              width: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-              //opacity: canvas==="1:1"?1:0.5 ,
-              backgroundColor: '#fff',
-              borderRadius: 10,
-            }}>
-            <Text style={{color: 'black', fontSize: 15}}></Text>
-          </TouchableOpacity> */}
+          </View> 
+         
         </ScrollView>
       </View>
     </View>

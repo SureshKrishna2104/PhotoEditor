@@ -31,7 +31,6 @@ const ImageAdjust = props => {
   const productImage = props.route.params.image1;
   const saveImg = () => {
     imgref.current.capture().then(uri => {
-      console.log('do something with ', uri);
       props.navigation.navigate('FinalImage', {
         image1: {path: uri},
       });
@@ -104,11 +103,6 @@ const ImageAdjust = props => {
             color="#fff"
             onPress={() => {
               saveImg();
-              // cropViewRef.current.saveImage(true, 90);
-              //console.log
-              //   navigation.navigate('FinalImage', {
-              //     image1:{ "path":cropViewRef.current.saveImage(true, 90)},
-              //   });
             }}
           />
         </View>

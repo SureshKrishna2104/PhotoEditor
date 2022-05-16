@@ -16,10 +16,7 @@ import RNFS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/Feather';
 const FinalImage = ({route}) => {
   const productId = route.params.image1?.path;
-  console.log(route.params.image1, 'finalImage');
-
-  console.log(productId);
-  console.log('file://' + productId);
+ 
 
   const checkPermission = async () => {
     // Function to check the platform
